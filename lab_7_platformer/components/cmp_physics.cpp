@@ -130,8 +130,8 @@ bool PhysicsComponent::isTouching(const PhysicsComponent& pc,
   return false;
 }
 
-std::vector<const b2Contact const*> PhysicsComponent::getTouching() const {
-  std::vector<const b2Contact const*> ret;
+std::vector<const b2Contact *> PhysicsComponent::getTouching() const {
+  std::vector<const b2Contact *> ret;
 
   b2ContactEdge* edge = _body->GetContactList();
   while (edge != NULL) {

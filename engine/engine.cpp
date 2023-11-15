@@ -81,7 +81,7 @@ void Engine::Render(RenderWindow& window) {
 
 void Engine::Start(unsigned int width, unsigned int height,
                    const std::string& gameName, Scene* scn) {
-  RenderWindow window(VideoMode(width, height), gameName);
+  RenderWindow window(VideoMode(Vector2u (width,height)), gameName);
   _gameName = gameName;
   _window = &window;
   Renderer::initialise(window);
