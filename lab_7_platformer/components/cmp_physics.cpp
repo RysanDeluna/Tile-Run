@@ -96,7 +96,8 @@ void PhysicsComponent::render() {}
 
 void PhysicsComponent::impulse(const sf::Vector2f& i) {
   auto a = b2Vec2(i.x, i.y * -1.0f);
-  _body->ApplyLinearImpulseToCenter(a, true);
+  // _body->ApplyLinearImpulseToCenter (a, true);
+  _body->ApplyLinearImpulse (a, _body->GetWorldCenter(), true);
 }
 
 void PhysicsComponent::dampen(const sf::Vector2f& i) {

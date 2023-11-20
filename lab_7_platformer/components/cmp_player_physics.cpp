@@ -42,6 +42,7 @@ void PlayerPhysicsComponent::update(double dt) {
       Keyboard::isKeyPressed(Keyboard::Right)) {
     // Moving Either Left or Right
     if (Keyboard::isKeyPressed(Keyboard::Right)) {
+      std::cout << "RIGHT KEY" << std::endl;
       if (getVelocity().x < _maxVelocity.x)
         impulse({(float)(dt * _groundspeed), 0});
     } else {

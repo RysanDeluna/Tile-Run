@@ -6,6 +6,7 @@
 #include <iostream> // std::cout, std::fixed
 #include <sstream>
 #include <vector>
+#include <cstdint>
 
 namespace sf {
 
@@ -47,9 +48,10 @@ template <typename T, typename U> Vector2<T> Vcast(const Vector2<U>& v) {
   return Vector2<T>(static_cast<T>(v.x), static_cast<T>(v.y));
 };
 
-static double degrees(double radians) {
-  return radians * 180.0 / (4.0 * atan(1.0));
-}
+// TODO: check what this function should actually do
+// Just a casting to avoid errors during Compilation
+template <typename T>
+double degrees(T deg) { return (double)deg; }
 
 static double deg2rad(double degrees) {
   return degrees * 4.0 * atan(1.0) / 180.0;
