@@ -7,6 +7,8 @@
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
+#include <thread>
+
 using namespace std;
 using namespace sf;
 
@@ -20,13 +22,16 @@ void Level2Scene::Load() {
   // Create player
   {
     // *********************************
-
-
-
-
-
-
+    player = makeEntity();
+    // Define Position
+    player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+    // Create a shape and assign it
+    auto s = player->addComponent<ShapeComponent>();
+    s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
+    s->getShape().setFillColor(Color::Magenta);
+    s->getShape().setOrigin(Vector2f (10.f, 15.f));
     // *********************************
+
     player->addTag("player");
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
   }
@@ -38,13 +43,14 @@ void Level2Scene::Load() {
                        Vector2f(0, 24));
     // *********************************
     // Add HurtComponent
-
+    enemy->addComponent<HurtComponent>();
     // Add ShapeComponent, Red 16.f Circle
-
-
-
-
+    auto s = enemy->addComponent<ShapeComponent>();
+    s->setShape<sf::CircleShape>(16.f);
+    s->getShape().setFillColor(sf::Color::Red);
+    s->getShape().setOrigin(Vector2f (8.f,8.f));
     // Add EnemyAIComponent
+    enemy->addComponent<EnemyAIComponent>();
 
     // *********************************
   }
@@ -64,17 +70,19 @@ void Level2Scene::Load() {
   // Add physics colliders to level tiles.
   {
     // *********************************
-
-
-
-
-
-
-
-
+    auto walls = ls::findTiles(ls::WALL);
+    for (auto w : walls)
+    {
+      auto pos = ls::getTilePosition(w);
+      pos += Vector2f (20.f, 20.f);  // Offset
+      auto e = makeEntity();
+      e->setPosition(pos);
+      e->addComponent<PhysicsComponent>(false, Vector2f (40.f, 40.f));
+    }
     // *********************************
   }
 
+  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
   cout << " Scene 2 Load Done" << endl;
   setLoaded(true);
 }
