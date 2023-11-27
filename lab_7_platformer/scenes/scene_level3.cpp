@@ -5,6 +5,7 @@
 #include "../components/cmp_bullet.h"
 #include <LevelSystem.h>
 #include <iostream>
+#include <thread>
 using namespace std;
 using namespace sf;
 
@@ -18,33 +19,34 @@ void Level3Scene::Load() {
 
   // Create player
   {
-    // *********************************
+    player = makeEntity();
+    player->setPosition({100, 100});
+    auto s = player->addComponent<ShapeComponent>();
+    s->setShape<RectangleShape>(Vector2f(20.f, 30.f));
+    s->getShape().setFillColor(Color::Magenta);
+    s->getShape().setOrigin(10.f,15.f);
 
-
-    // pl->setPosition({100, 100});
-
-
-
-
-
-
-    // *********************************
+    player->addTag("player");
+    player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
   }
 
   // Add physics colliders to level tiles.
   {
     // *********************************
-
-
-
-
-
-
-
-
+    auto walls = ls::findTiles(ls::WALL);
+    for (auto w : walls)
+    {
+      auto pos = ls::getTilePosition(w);
+      pos += Vector2f(20.f, 20.f);
+      auto e = makeEntity();
+      e->setPosition(pos);
+      e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
+    }
     // *********************************
   }
 
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(1500));
   cout << " Scene 3 Load Done" << endl;
   setLoaded(true);
 }
