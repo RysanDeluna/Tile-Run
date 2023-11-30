@@ -20,8 +20,8 @@ protected:
 
 public:
     void update(double dt) override;
-    void move(const sf::Vector2f&);
-    void move(float x, float y);
+    bool move(const sf::Vector2f&);
+    bool move(float x, float y);
     void render() override {}
     void setSpeed(float speed);
     explicit ActorMovementComponent(Entity* p);

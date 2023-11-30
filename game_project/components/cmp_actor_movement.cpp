@@ -25,16 +25,18 @@ void ActorMovementComponent::setSpeed(float speed) { _speed = speed; }
 // x == +1 -> right  |   y == +1 -> down
 // x == -1 -> left   |   y == -1 -> up
 /* ----------------------------------------------------- */
-void ActorMovementComponent::move(float x, float y)
+bool ActorMovementComponent::move(float x, float y)
 {
-  move(sf::Vector2f (x, y));
+  return move(sf::Vector2f (x, y));
 }
 
-void ActorMovementComponent::move(const sf::Vector2f & pos)
+bool ActorMovementComponent::move(const sf::Vector2f & pos)
 {
   auto pp = _parent->getPosition() + ls::getOffset() + ls::getTileSize() * pos;
-  if (validMove(pp))
+  bool valid = validMove(pp);
+  if (valid)
     _parent->setPosition(pp);
+  return valid;
 }
 
 PlayerMoveComponent::PlayerMoveComponent(Entity *p) :
@@ -43,13 +45,15 @@ PlayerMoveComponent::PlayerMoveComponent(Entity *p) :
 void PlayerMoveComponent::update(double dt)
 {
   _timer-=dt;
+  bool moved = false;
   if (_timer <= 0)
   {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { move(0.f,-1.f); _timer=_speed; }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { move(0.f, 1.f); _timer=_speed; }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { move(-1.f, 0.f); _timer=_speed; }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { move(1.f, 0.f); _timer=_speed; }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) moved = move(0.f,-1.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) moved = move(0.f, 1.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) moved = move(-1.f, 0.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) moved = move(1.f, 0.f);
   }
+  if (moved) _timer=_speed;
 }
 
 

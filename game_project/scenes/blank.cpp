@@ -18,17 +18,19 @@ void Blank::Load() {
   // Importing Level from file
   ls::loadLevelFile("res/blank_level.txt", 40.f);
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * 40.f)));
+  auto spawn_offset = sf::Vector2f(20.f,20.f);
 
   {
     player = makeEntity();
-    player->setPosition(ls::getTilePosition(sf::Vector2ul(10,10)) + ls::getOffset());
+    player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]) + spawn_offset);
+    std::cout << "OF: " << ls::getOffset().x << " " << ls::getOffset().y << std::endl;
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(sf::Vector2f(40.f, 40.f));
     s->getShape().setFillColor(sf::Color::Green);
     s->getShape().setOrigin(sf::Vector2f (20.f,20.f));
 
     player->addComponent<PlayerMoveComponent>();
-    player->get_components<PlayerMoveComponent>()[0]->setSpeed(0.4f);
+    player->get_components<PlayerMoveComponent>()[0]->setSpeed(0.5f);
   }
 
   setLoaded(true);
@@ -44,6 +46,8 @@ void Blank::UnLoad() {
 }
 
 void Blank::Update(const double& dt) {
+  if (ls::getTileAt(player->getPosition()) == ls::END)
+    Engine::ChangeScene((Scene*)&menu);
   Scene::Update(dt);
 }
 
