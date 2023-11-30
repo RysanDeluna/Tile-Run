@@ -45,6 +45,7 @@ private:
   static void Render(sf::RenderWindow& window);
 };
 
+
 namespace timing {
 // Return time since Epoc
 long long now();

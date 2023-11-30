@@ -152,4 +152,32 @@ set_target_properties(PRACTICAL_7_PLATFORMER
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
 )
 
+file(GLOB_RECURSE SOURCES game_project/*.cpp game_project/*.h)
+file(GLOB_RECURSE CMPNTS game_project/components/*.cpp game_project/components/*.h)
+file(GLOB_RECURSE SCENES game_project/scenes/*.cpp game_project/scenes/*.h)
+add_executable(GAME_PROJECT ${SOURCES} ${RESOURCE_FILES}
+        game_project/scenes/scene_menu.cpp
+        game_project/components/cmp_actor_movement.cpp
+        game_project/components/cmp_input.cpp
+        game_project/components/cmp_input.h)
+source_group("components" FILES ${CMPNTS})
+source_group("resources" FILES ${RESOURCE_FILES})
+
+
+target_link_libraries(GAME_PROJECT lib_engine)
+set(EXECUTABLES ${EXECUTABLES} GAME_PROJECT)
+
+
+if (WIN32 AND BUILD_SHARED_LIBS)
+    add_custom_command(TARGET GAME_PROJECT POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:PRACTICAL_7_PLATFORMER> $<TARGET_FILE_DIR:GAME_PROJECT> COMMAND_EXPAND_LISTS)
+endif()
+
+add_dependencies(GAME_PROJECT copy_resources)
+
+
+set_target_properties(GAME_PROJECT
+        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+)
 #@@-

@@ -13,24 +13,31 @@ static shared_ptr<Entity> player;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
+  // Import level from file ***
   ls::loadLevelFile("res/level_1.txt", 40.0f);
 
+  // Calculate a height offset
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
   ls::setOffset(Vector2f(0, ho));
 
-  // Create player
+  // Create Entities ****
   {
+    // Create the Player
     player = makeEntity();
+    // Spawn point
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+    // Appearance
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
     s->getShape().setFillColor(Color::Magenta);
     s->getShape().setOrigin(Vector2f(10.f, 15.f));
 
+    // Behaviour
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
   }
 
   // Add physics colliders to level tiles.
+  // The collider is separate from the sprite and shape of the wall itself
   {
     auto walls = ls::findTiles(ls::WALL);
     for (auto w : walls) {
@@ -43,7 +50,7 @@ void Level1Scene::Load() {
   }
 
   //Simulate long loading times
-  std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+  std::this_thread::sleep_for(std::chrono::milliseconds(1500));
   cout << " Scene 1 Load Done" << endl;
 
   setLoaded(true);
@@ -57,7 +64,6 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
-
   if (ls::getTileAt(player->getPosition()) == ls::END) {
     Engine::ChangeScene((Scene*)&level2);
   }

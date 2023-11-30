@@ -7,11 +7,13 @@ using namespace std;
 using namespace sf;
 
 void EnemyTurretComponent::update(double dt) {
+  // Time to fire
   _firetime -= dt;
   if (_firetime <= 0.f) {
     fire();
     _firetime = 1.f;
   }
+  // Rotation
   static float angle = 0.f;
   angle += 1.f * dt;
 

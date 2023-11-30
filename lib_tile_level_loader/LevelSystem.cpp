@@ -54,6 +54,7 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
       if (w == 0) {  // if we haven't written width yet
         w = i;       // set width
       } else if (w != (widthCheck - 1)) {
+        std::cout << "non uniform width" << endl;
         throw string("non uniform width:" + to_string(h) + " ") + path;
       }
       widthCheck = 0;
