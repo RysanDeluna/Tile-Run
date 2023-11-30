@@ -20,6 +20,7 @@ void Blank::Load() {
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * 40.f)));
   auto spawn_offset = sf::Vector2f(20.f,20.f);
 
+  // PLAYER SPAWNING
   {
     player = makeEntity();
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]) + spawn_offset);
@@ -29,8 +30,17 @@ void Blank::Load() {
     s->getShape().setFillColor(sf::Color::Green);
     s->getShape().setOrigin(sf::Vector2f (20.f,20.f));
 
-    player->addComponent<PlayerMoveComponent>();
-    player->get_components<PlayerMoveComponent>()[0]->setSpeed(0.5f);
+    player->addComponent<PlayerMoveComponent>(0.1f);
+  }
+
+  // ENEMIES
+  {
+    auto enemy = makeEntity();
+    enemy->setPosition(ls::getTilePosition(ls::findTiles(ls::ENEMY)[0]) + spawn_offset);
+    auto s = enemy->addComponent<ShapeComponent>();
+    s->setShape<sf::RectangleShape>(sf::Vector2f(40.f, 40.f));
+    s->getShape().setFillColor(sf::Color::Magenta);
+    s->getShape().setOrigin(sf::Vector2f (20.f, 20.f));
   }
 
   setLoaded(true);

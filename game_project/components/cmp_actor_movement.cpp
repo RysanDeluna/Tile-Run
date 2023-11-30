@@ -9,8 +9,8 @@
 
 void ActorMovementComponent::update(double dt) {}
 
-ActorMovementComponent::ActorMovementComponent(Entity *p)
-  : _speed(1.f), Component(p) {}
+ActorMovementComponent::ActorMovementComponent(Entity *p, float s)
+  : _speed(s), Component(p) {}
 
 
 // Check if the current movement is valid
@@ -39,8 +39,9 @@ bool ActorMovementComponent::move(const sf::Vector2f & pos)
   return valid;
 }
 
-PlayerMoveComponent::PlayerMoveComponent(Entity *p) :
-        ActorMovementComponent(p), _timer(0){}
+
+PlayerMoveComponent::PlayerMoveComponent(Entity *p, float s) :
+        ActorMovementComponent(p, s), _timer(0){}
 
 void PlayerMoveComponent::update(double dt)
 {
@@ -57,35 +58,3 @@ void PlayerMoveComponent::update(double dt)
 }
 
 
-//CommandComponent::CommandComponent(Entity *p, sf::Keyboard::Key k) :
-//      ActorMovementComponent(p), k_(k) { }
-//
-//double CommandComponent::_timer = 0.f;
-//
-//void CommandComponent::update(double dt) {CommandComponent::_timer -= dt;}
-//
-//MoveUpComponent::MoveUpComponent(Entity *p, sf::Keyboard::Key k) :
-//        CommandComponent(p, k) {}
-//
-//void MoveUpComponent::update(double dt)
-//{
-//  if (CommandComponent::_timer <= 0)
-//    if(sf::Keyboard::isKeyPressed(k_))
-//    {
-//      move(0.f,-1.f);
-//      CommandComponent::_timer = _speed;
-//    }
-//}
-//
-//MoveDownComponent::MoveDownComponent(Entity *p, sf::Keyboard::Key k) :
-//        CommandComponent(p, k) {}
-//
-//void MoveDownComponent::update(double dt)
-//{
-//  if (CommandComponent::_timer <= 0)
-//    if(sf::Keyboard::isKeyPressed(k_))
-//    {
-//      move(0.f,1.f);
-//      CommandComponent::_timer = _speed;
-//    }
-//}

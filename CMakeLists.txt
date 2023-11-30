@@ -155,11 +155,7 @@ set_target_properties(PRACTICAL_7_PLATFORMER
 file(GLOB_RECURSE SOURCES game_project/*.cpp game_project/*.h)
 file(GLOB_RECURSE CMPNTS game_project/components/*.cpp game_project/components/*.h)
 file(GLOB_RECURSE SCENES game_project/scenes/*.cpp game_project/scenes/*.h)
-add_executable(GAME_PROJECT ${SOURCES} ${RESOURCE_FILES}
-        game_project/scenes/scene_menu.cpp
-        game_project/components/cmp_actor_movement.cpp
-        game_project/components/cmp_input.cpp
-        game_project/components/cmp_input.h)
+add_executable(GAME_PROJECT ${SOURCES} ${RESOURCE_FILES})
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
 
