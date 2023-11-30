@@ -4,19 +4,34 @@
 using namespace std;
 using namespace sf;
 
-std::map<LevelSystem::Tile, sf::Color> LevelSystem::_colours{
+std::map<LevelSystem::Tile, sf::Color> LevelSystem::_fillcolours{
     {WALL, Color::White}, {END, Color::Red}};
 
+std::map<LevelSystem::Tile, sf::Color> LevelSystem::_edgecolours{
+    {EMPTY, sf::Color(50,50,50)}, {WALL, sf::Color::White}, {END, sf::Color::Red}};
+
 sf::Color LevelSystem::getColor(LevelSystem::Tile t) {
-  auto it = _colours.find(t);
-  if (it == _colours.end()) {
-    _colours[t] = Color::Transparent;
+  auto it = _fillcolours.find(t);
+  if (it == _fillcolours.end()) {
+    _fillcolours[t] = Color::Transparent;
   }
-  return _colours[t];
+  return _fillcolours[t];
+}
+
+sf::Color LevelSystem::getEdgeColor(LevelSystem::Tile t){
+  auto it = _edgecolours.find(t);
+  if (it == _edgecolours.end())
+    _edgecolours[t] = Color::Transparent;
+  return _edgecolours[t];
 }
 
 void LevelSystem::setColor(LevelSystem::Tile t, sf::Color c) {
-  _colours[t] = c;
+  _fillcolours[t] = c;
+}
+
+void LevelSystem::setEdgeColor(LevelSystem::Tile t, sf::Color c)
+{
+  _edgecolours[t] = c;
 }
 
 std::unique_ptr<LevelSystem::Tile[]> LevelSystem::_tiles;
@@ -83,16 +98,20 @@ void LevelSystem::buildSprites(bool optimise) {
     sf::Vector2f p;
     sf::Vector2f s;
     sf::Color c;
+    sf::Color edge;
   };
   vector<tp> tps;
+  vector<tp> e_tps;
   const auto tls = Vector2f(_tileSize, _tileSize);
   for (size_t y = 0; y < _height; ++y) {
     for (size_t x = 0; x < _width; ++x) {
       Tile t = getTile({x, y});
-      if (t == EMPTY) {
+      if (t == EMPTY)
+      {
+        e_tps.push_back({getTilePosition({x,y}), tls, getColor(t), getEdgeColor(t)});
         continue;
       }
-      tps.push_back({getTilePosition({x, y}), tls, getColor(t)});
+      tps.push_back({getTilePosition({x, y}), tls, getColor(t), getEdgeColor(t)});
     }
   }
 
@@ -162,10 +181,22 @@ void LevelSystem::buildSprites(bool optimise) {
     auto s = make_unique<sf::RectangleShape>();
     s->setPosition(t.p);
     s->setSize(t.s);
-    s->setFillColor(Color::Red);
     s->setFillColor(t.c);
+    s->setOutlineColor(t.edge);
+    s->setOutlineThickness(-0.5f);
     // s->setFillColor(Color(rand()%255,rand()%255,rand()%255));
-    _sprites.push_back(move(s));
+    _sprites.push_back(std::move(s));
+  }
+
+  for (auto& t : e_tps)
+  {
+    auto s = make_unique<sf::RectangleShape>();
+    s->setPosition(t.p);
+    s->setSize(t.s);
+    s->setFillColor(t.c);
+    s->setOutlineColor(t.edge);
+    s->setOutlineThickness(-0.5f);
+    _sprites.push_back(std::move(s));
   }
 
   cout << "Level with " << (_width * _height) << " Tiles, With " << nonempty

@@ -41,8 +41,10 @@ public:
   static std::vector<sf::Vector2ul> findTiles(Tile);
 
   static sf::Color getColor(Tile t);
+  static sf::Color getEdgeColor(LevelSystem::Tile t);
 
   static void setColor(Tile t, sf::Color c);
+  static void setEdgeColor(Tile t, sf::Color c);
 
   static void setOffset(const sf::Vector2f& _offset);
 
@@ -61,7 +63,8 @@ protected:
   static void buildSprites(bool optimise = true);
 
   static float _tileSize; // for rendering
-  static std::map<Tile, sf::Color> _colours;
+  static std::map<Tile, sf::Color> _fillcolours;
+  static std::map<Tile, sf::Color> _edgecolours;
 
 private:
   LevelSystem() = delete;
