@@ -43,8 +43,7 @@ Vector2f LevelSystem::_offset(0.0f, 30.0f);
 // Vector2f LevelSystem::_offset(0,0);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
 
-void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
-  _tileSize = tileSize;
+void LevelSystem::loadLevelFile(const std::string& path, float window_size) {
   size_t w = 0, h = 0;
   string buffer;
 
@@ -86,6 +85,7 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
   _tiles = std::make_unique<Tile[]>(w * h);
   _width = w; // set static class vars
   _height = h;
+  _tileSize = window_size/float(_width);
   std::copy(temp_tiles.begin(), temp_tiles.end(), &_tiles[0]);
   cout << "Level " << path << " Loaded. " << w << "x" << h << std::endl;
   buildSprites();

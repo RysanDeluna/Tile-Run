@@ -16,9 +16,11 @@ void Blank::Load() {
   std::cout << ">> BLANK CANVAS LOADING <<" << std::endl;
 
   // Importing Level from file
-  ls::loadLevelFile("res/blank_level.txt", 40.f);
-  ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * 40.f)));
-  auto spawn_offset = sf::Vector2f(20.f,20.f);
+  ls::loadLevelFile("res/blank_level.txt", float(Engine::getWindowSize().x));
+  float tile_size = ls::getTileSize();
+  ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
+  auto spawn_offset = sf::Vector2f(tile_size/2, tile_size/2);
+
 
   // PLAYER SPAWNING
   {
@@ -26,9 +28,9 @@ void Blank::Load() {
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]) + spawn_offset);
     std::cout << "OF: " << ls::getOffset().x << " " << ls::getOffset().y << std::endl;
     auto s = player->addComponent<ShapeComponent>();
-    s->setShape<sf::RectangleShape>(sf::Vector2f(40.f, 40.f));
+    s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size, tile_size));
     s->getShape().setFillColor(sf::Color::Green);
-    s->getShape().setOrigin(sf::Vector2f (20.f,20.f));
+    s->getShape().setOrigin(spawn_offset);
 
     player->addComponent<PlayerMoveComponent>(0.1f);
   }
@@ -38,9 +40,9 @@ void Blank::Load() {
     auto enemy = makeEntity();
     enemy->setPosition(ls::getTilePosition(ls::findTiles(ls::ENEMY)[0]) + spawn_offset);
     auto s = enemy->addComponent<ShapeComponent>();
-    s->setShape<sf::RectangleShape>(sf::Vector2f(40.f, 40.f));
+    s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size, tile_size));
     s->getShape().setFillColor(sf::Color::Magenta);
-    s->getShape().setOrigin(sf::Vector2f (20.f, 20.f));
+    s->getShape().setOrigin(spawn_offset);
   }
 
   setLoaded(true);
