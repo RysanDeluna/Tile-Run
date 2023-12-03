@@ -155,10 +155,11 @@ set_target_properties(PRACTICAL_7_PLATFORMER
 file(GLOB_RECURSE SOURCES game_project/*.cpp game_project/*.h)
 file(GLOB_RECURSE CMPNTS game_project/components/*.cpp game_project/components/*.h)
 file(GLOB_RECURSE SCENES game_project/scenes/*.cpp game_project/scenes/*.h)
+file(GLOB_RECURSE AI game_project/ai/*.cpp game_project/ai/*.h)
 add_executable(GAME_PROJECT ${SOURCES} ${RESOURCE_FILES})
 source_group("components" FILES ${CMPNTS})
 source_group("resources" FILES ${RESOURCE_FILES})
-
+source_group("ai" FILES ${AI})
 
 target_link_libraries(GAME_PROJECT lib_engine)
 set(EXECUTABLES ${EXECUTABLES} GAME_PROJECT)

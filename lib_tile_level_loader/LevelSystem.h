@@ -28,6 +28,8 @@ public:
 
   static Tile getTile(sf::Vector2ul);
 
+  static sf::Vector2ul getTileCoord(sf::Vector2f);
+
   static Tile getTileAt(sf::Vector2f);
 
   static bool isOnGrid(sf::Vector2f);

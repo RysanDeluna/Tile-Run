@@ -6,21 +6,24 @@
 #include "../game.h"
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_actor_movement.h"
+#include "../ai/Graph.h"
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
 
 static std::shared_ptr<Entity> player;
+// TESTING GRAPH NEIGHBORS -----------------------------
+static std::vector<std::shared_ptr<Entity>> arrows;
+// TESTING GRAPH NEIGHBORS -----------------------------
 
 void Blank::Load() {
   std::cout << ">> BLANK CANVAS LOADING <<" << std::endl;
 
   // Importing Level from file
-  ls::loadLevelFile("res/blank_level.txt", float(Engine::getWindowSize().x));
+  ls::loadLevelFile("res/blank_level_small.txt", float(Engine::getWindowSize().x));
   float tile_size = ls::getTileSize();
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
   auto spawn_offset = sf::Vector2f(tile_size/2, tile_size/2);
-
 
   // PLAYER SPAWNING
   {
@@ -45,6 +48,20 @@ void Blank::Load() {
     s->getShape().setOrigin(spawn_offset);
   }
 
+  // TESTING GRAPH NEIGHBORS -----------------------------
+  for (int i = 0; i < 4; i++)
+  {
+    auto a = makeEntity();
+    auto s = a->addComponent<ShapeComponent>();
+    a->setVisible(false);
+    s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size/2, tile_size/2));
+    s->getShape().setFillColor(sf::Color::Red);
+    s->getShape().setOrigin(10,10);
+    arrows.push_back(a);
+  }
+  // TESTING GRAPH NEIGHBORS -----------------------------
+
+  // Finishing touches
   setLoaded(true);
   std::cout <<">> BLANK CANVAS LOADED <<" << std::endl;
 }
@@ -60,6 +77,18 @@ void Blank::UnLoad() {
 void Blank::Update(const double& dt) {
   if (ls::getTileAt(player->getPosition()) == ls::END)
     Engine::ChangeScene((Scene*)&menu);
+
+  // TESTING GRAPH NEIGHBORS -----------------------------
+  Graph g = Graph(ls::getWidth(), ls::getHeight());
+  auto neigh = g.neighbors(ls::getTileCoord(player->getPosition()));
+  int i = -1;
+  for (auto a : arrows) a->setVisible(false);
+  for (auto n : neigh)
+  {
+    arrows[++i]->setPosition(ls::getTilePosition(sf::Vector2ul(n.x, n.y)) + sf::Vector2f(ls::getTileSize()/2, ls::getTileSize()/2));
+    arrows[i]->setVisible(true);
+  }
+  // TESTING GRAPH NEIGHBORS -----------------------------
   Scene::Update(dt);
 }
 

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "engine.h"
+#include "../ai/Graph.h"
 
 class Blank : public Scene {
 public:
