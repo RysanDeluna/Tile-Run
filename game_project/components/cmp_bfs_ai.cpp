@@ -48,7 +48,7 @@ void AIBFSComponent::update(double dt)
     goal_changed = false;
   }
   // Moves towards it
-  if(_mtimer <= 0)
+  if(_mtimer <= 0 && my_coord != goal_)
   {
     sf::Vector2ul next = goal_;
 
@@ -67,8 +67,6 @@ void AIBFSComponent::update(double dt)
     if(next.y > my_coord.y) dir.y = 1.f;
     if(next.x < my_coord.x) dir.x = -1.f;
     if(next.x > my_coord.x) dir.x = 1.f;
-
-    std::cout << "CP= " << next.x << next.y << std::endl;
 
     move(dir.x, dir.y);
     _mtimer = _speed;

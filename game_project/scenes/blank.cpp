@@ -48,9 +48,8 @@ void Blank::Load() {
     s->getShape().setFillColor(sf::Color::Magenta);
     s->getShape().setOrigin(spawn_offset);
 
-    enemy->addComponent<ActorMovementComponent>();
-    enemy->addComponent<AIBFSComponent>(G, ls::getTileCoord(player->getPosition()));
-
+    auto ai = enemy->addComponent<AIBFSComponent>(G, ls::getTileCoord(player->getPosition()));
+    ai->setSpeed(0.15f);
     enemy->addTag("enemy");
   }
 

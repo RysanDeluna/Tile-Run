@@ -39,6 +39,10 @@ bool ActorMovementComponent::move(const sf::Vector2f & pos)
   return valid;
 }
 
+float ActorMovementComponent::getSpeed() const {
+  return _speed;
+}
+
 // **** PLAYER ****
 
 PlayerMoveComponent::PlayerMoveComponent(Entity *p, float s) :
