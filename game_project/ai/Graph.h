@@ -3,13 +3,11 @@
 //
 #pragma once
 
-#include <maths.h>
 #include <SFML/Graphics.hpp>
 #include <LevelSystem.h>
 #include <array>
 
 struct Graph {
-
     uint _width;
     uint _height;
 

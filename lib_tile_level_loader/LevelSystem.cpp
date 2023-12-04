@@ -211,8 +211,8 @@ void LevelSystem::render(RenderWindow& window) {
 
 LevelSystem::Tile LevelSystem::getTile(sf::Vector2ul p) {
   if (p.x > _width || p.y > _height) {
-    throw string("Tile out of range: ") + to_string(p.x) + "," +
-        to_string(p.y) + ")";
+    cout << "TILE OUT OF RANGE: " << p.x << "," << p.y << endl;
+    throw "";
   }
   return _tiles[(p.y * _width) + p.x];
 }

@@ -39,6 +39,7 @@ bool ActorMovementComponent::move(const sf::Vector2f & pos)
   return valid;
 }
 
+// **** PLAYER ****
 
 PlayerMoveComponent::PlayerMoveComponent(Entity *p, float s) :
         ActorMovementComponent(p, s), _timer(0){}

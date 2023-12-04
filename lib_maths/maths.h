@@ -8,6 +8,7 @@
 #include <vector>
 #include <cstdint>
 
+
 namespace sf {
 
 typedef Vector2<size_t> Vector2ul;
@@ -84,4 +85,13 @@ std::string toStrDecPt(const uint16_t& dp, const T& i) {
   std::stringstream stream;
   stream << std::fixed << std::setprecision(dp) << i;
   return stream.str();
+}
+
+// In order to implement the unordered_map
+namespace std {
+    template <> struct hash<sf::Vector2ul> {
+        std::size_t operator()(const sf::Vector2ul& id) const noexcept {
+          return std::hash<unsigned long>()(id.x ^ (id.y << 16));
+        }
+    };
 }
