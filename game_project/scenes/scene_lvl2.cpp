@@ -6,6 +6,7 @@
 #include "../game.h"
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_pursuer_ai.h"
+#include "../components/cmp_hurt_player.h"
 #include <LevelSystem.h>
 #include <iostream>
 
@@ -21,6 +22,7 @@ void SceneLVL2::Load()
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
   sf::Vector2f spawn_offset (tile_size/2, tile_size/2);
 
+  timer = 0;
   // PLAYER SPAWNING
   {
     player = makeEntity();
@@ -67,10 +69,18 @@ void SceneLVL2::UnLoad()
 void SceneLVL2::Update(const double &dt)
 {
   timer+= dt;
-  auto enemy_ai = ents.find("enemy")[0]->get_components<PursuerAIComponent>()[0];
-  if(timer > 1 && !enemy_ai->isActive()) enemy_ai->setActive(true);
+  {
+    auto e = ents.find("enemy")[0];
+    if(timer > 1 && !e->get_components<PursuerAIComponent>()[0]->isActive())
+    {
+      e->get_components<PursuerAIComponent>()[0]->setActive(true);
+      e->addComponent<HurtComponent>();
+    }
+  }
 
-  if(ls::getTileAt(player->getPosition())==ls::END) Engine::ChangeScene((Scene*)&menu);
+  if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl2);
+  else if (ls::getTileAt(player->getPosition()) == ls::END)
+    Engine::ChangeScene((Scene*)&menu);
 
   Scene::Update(dt);
 }
