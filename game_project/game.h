@@ -3,9 +3,11 @@
 //
 #pragma once
 
-#include "scenes/blank.h"
 #include "scenes/scene_menu.h"
+#include "scenes/scene_lvl1.h"
+#include "scenes/scene_lvl2.h"
 
 extern MenuScene menu;
-extern Blank blank;
+extern SceneLVL1 lvl1;
+extern SceneLVL2 lvl2;
 

@@ -63,7 +63,6 @@ public:
 
   //
   const sf::Vector2f& getPosition() const;
-  const sf::Vector2ul& getCoord() const;
 
   void setPosition(const sf::Vector2f& _position);
 

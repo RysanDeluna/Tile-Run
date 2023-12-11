@@ -21,7 +21,7 @@ void MenuScene::Update(const double& dt) {
   // cout << "Menu Update "<<dt<<"\n";
 
   if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
-    Engine::ChangeScene(&blank);
+    Engine::ChangeScene(&lvl1);
   }
 
   Scene::Update(dt);
