@@ -12,7 +12,7 @@
 #include <iostream>
 
 static std::shared_ptr<Entity> player;
-double timer;
+static double timer;
 
 void SceneLVL2::Load()
 {
@@ -61,7 +61,7 @@ void SceneLVL2::Load()
       enemy->setPosition(player->getPosition());
       auto s = enemy->addComponent<ShapeComponent>();
       s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size, tile_size));
-      s->getShape().setFillColor(sf::Color::Magenta);
+      s->getShape().setFillColor(sf::Color::Yellow);
       s->getShape().setOrigin(spawn_offset);
 
       enemy->addComponent<PursuerAIComponent>();

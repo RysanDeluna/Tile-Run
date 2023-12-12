@@ -1,36 +1,27 @@
-wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-wns w        w      www   ww            w w    w   w   ww     ww
-w   w        w          ww     www   w    w            ww  ww ww
-ww ww wwww www wwwwwwwwwwwwwwwwwwwwwwwwww w www ww w wwww www ww
-w  w  ww        w w  w ww w   w    w  w   w w    w w w    w   ww
-w  w  ww        w w  w ww w   w    w  w   w w    w w w    w   ww
-w www ww wwwww ww w  w ww w w w wwww ww w www wwww w wwww w w  w
-w        w           w ww          w ww w     w      ww        w
-w        w           w ww            ww w     w                w
-w  ww ww w w ww wwwwww ww ww  wwwwwwwwwww w w w wwwwww ww www  w
-w  ww  w   w    w w        ww             w w w ww      w      w
-w  w w w   w    w w                       w   w ww       w     w
-w ww www wwwww ww w  wwwwwwwwwwww  wwwwwwwwww wwww w www wwww  w
-w     w  w w w       w  w w   w      w  w     w        w  w    w
-w   w w  w w w       w  w w   w      w  w     w        ww w    w
-w  ww w  w w ww w w ww  w www www  w ww w www w ww w w ww www  w
-w  w  w   w  w  w w  w ww w w w w    w  w   w w ww w w    w w  w
-w  ww w   w  w  w w  w    w w w w    w  w   w w ww w w ww w w ww
-w www ww www w  w w  w ww w w w w  wwwwwwwwwwwwwwwwwww ww w w  w
-w  w  ww        w         w   w    w  w   w w w ww        w    w
-w  w   w        w w                       w w w ww             w
-ww ww wwwwww w  wwwwww ww www www  w  w  ww w w ww w wwww www ww
-ww ww wwwwww w  wwwwww ww www www  w  w  ww w w ww w wwww www ww
-w  ww  w   w w  w                  w ww www     ww     ww      w
-w      w   w w  w w                w  w     ww  ww     ww     ww
-ww ww wwwwww w  w w  wwwwwwwwwwww  w  w             ww ww www  w
-w  ww  w     w  w                  w ww www     ww     ww     ww
-w w    w   w w  w w                w  w       wwww     ww     ww
-w www ww w w ww wwww w ww w w w w  wwwwwwwwww w  w w w wwww w ww
-w   w w  w w ww wwww w    w w w w          ww w    w w w    w ww
-w   w w  w w ww wwww w ww w w w w          ww w    w w wwww w ww
-w     w  w                w w w w    w  w                 w w ww
-w     w  w                w w w w    w  w                 w weww
-w www ww wwwww ww w  w ww w w w w ww ww w www wwww w wwww      w
-w     w  w                w w   w    w  w                   w ww
-wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+w s  + +                                       w
+wwwwwww  w              w                  w www
+w        w              w            n     w wew
+w   +    w              w                  w w w
+w        w              w                  w w w
+www  wwwww      wwwwwwwwwwwwwww w          w w w
+www  w          w       w       w          w w w
+w +  www w      w       w       w          w w w
+w  www   w          n        +  w          w   w
+w  w w   w      w       w       w          wwwww
+w  w w   w      w       w       w          w   w
+w  w w   wwwwww wwwwwww w wwwwwwwwwwwwwwwwww n w
+w+ w w   w      w               w          w   w
+w  w wwwww      w       w       w          w www
+w  w     w      w   +   w    +  w          w   w
+w  w     w      w       w       w          w   w
+w+ w     w      w       w       w          w www
+w  wwwww w      wwww wwww wwwwwww          w   w
+w        w              w                  w www
+wwwwwwwwww              w                  w   w
+w  w                    w                  w w w
+w  w     wwwwwwwwwwwwwwwwwwwwwwwwwwwww wwwww w w
+w                                            w w
+w  wwwwwwwwwwwwwwwwwwwwww   wwww w     wwwwwww w
+w                           w    w             w
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww

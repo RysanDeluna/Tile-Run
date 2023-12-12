@@ -62,7 +62,7 @@ void SceneLVL3::Load()
       enemy->setPosition(player->getPosition());
       auto s = enemy->addComponent<ShapeComponent>();
       s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size, tile_size));
-      s->getShape().setFillColor(sf::Color::Magenta);
+      s->getShape().setFillColor(sf::Color::Yellow);
       s->getShape().setOrigin(spawn_offset);
 
       enemy->addComponent<PursuerAIComponent>();
