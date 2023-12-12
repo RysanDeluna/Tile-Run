@@ -1,8 +1,9 @@
 //
-// Created by rysan on 11/12/23.
+// Created by rysan on 12/12/23.
 //
 
-#include "scene_lvl2.h"
+#include "scene_lvl3.h"
+
 #include "../game.h"
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_pursuer_ai.h"
@@ -12,13 +13,13 @@
 #include <iostream>
 
 static std::shared_ptr<Entity> player;
-double timer;
+static double timer;
 
-void SceneLVL2::Load()
+void SceneLVL3::Load()
 {
-  std::cout << ">> LVL 2 LOADING <<" << std::endl;
+  std::cout << ">> LVL 3 LOADING <<" << std::endl;
 
-  ls::loadLevelFile("res/lvls/lvl2.txt", float(Engine::getWindowSize().x));
+  ls::loadLevelFile("res/lvls/lvl3.txt", float(Engine::getWindowSize().x));
   float tile_size = ls::getTileSize();
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
   sf::Vector2f spawn_offset (tile_size/2, tile_size/2);
@@ -37,7 +38,7 @@ void SceneLVL2::Load()
     player->addTag("player");
   }
 
-  // Collectables
+  // Collectibles
   {
     for(const auto& t : ls::findTiles(ls::WAYPOINT))
     {
@@ -69,18 +70,18 @@ void SceneLVL2::Load()
     }
   }
   setLoaded(true);
-  std::cout << " LVL 2 LOADED " << std::endl;
+  std::cout << " LVL 3 LOADED " << std::endl;
 }
 
-void SceneLVL2::UnLoad()
+void SceneLVL3::UnLoad()
 {
-  std::cout << ">> LVL 2 UNLOAD << " << std::endl;
+  std::cout << ">> LVL 3 UNLOAD << " << std::endl;
   player.reset();
   ls::unload();
   Scene::UnLoad();
 }
 
-void SceneLVL2::Update(const double &dt)
+void SceneLVL3::Update(const double &dt)
 {
   timer+= dt;
   {
@@ -95,14 +96,14 @@ void SceneLVL2::Update(const double &dt)
     }
   }
 
-  if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl2);
+  if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl3);
   else if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
-    Engine::ChangeScene((Scene*)&lvl3);
+    Engine::ChangeScene((Scene*)&menu);
 
   Scene::Update(dt);
 }
 
-void SceneLVL2::Render()
+void SceneLVL3::Render()
 {
   ls::render(Engine::GetWindow());
   Scene::Render();

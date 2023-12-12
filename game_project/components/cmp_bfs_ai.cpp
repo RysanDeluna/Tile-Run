@@ -33,7 +33,7 @@ std::unordered_map<sf::Vector2ul, sf::Vector2ul> breadth_first_search(Graph *gra
 }
 
 AIBFSComponent::AIBFSComponent(Entity *p, const std::shared_ptr<Graph>& g, sf::Vector2ul goal)
-      : ActorMovementComponent(p, 0.8f), G_(g), goal_(goal), _mtimer(2.f), goal_changed(false) {}
+      : ActorMovementComponent(p, 0.8f), G_(g), goal_(goal), _mtimer(2.f), goal_changed(true) {}
 
 void AIBFSComponent::update(double dt)
 {

@@ -44,7 +44,8 @@ float ActorMovementComponent::getSpeed() const {
 }
 
 void ActorMovementComponent::increaseSpeed(float speed) {
-  _speed -= speed;
+
+  if (_speed > 0.07 )_speed -= speed;
 }
 
 // **** PLAYER ****
@@ -58,10 +59,10 @@ void PlayerMoveComponent::update(double dt)
   bool moved = false;
   if (_timer <= 0)
   {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) moved = move(0.f,-1.f);
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) moved = move(0.f, 1.f);
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) moved = move(-1.f, 0.f);
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) moved = move(1.f, 0.f);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) moved = move(0.f,-1.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) moved = move(0.f, 1.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) moved = move(-1.f, 0.f);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) moved = move(1.f, 0.f);
   }
   if (moved) _timer=_speed;
 }

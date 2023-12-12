@@ -14,7 +14,7 @@ void CollectableComponent::update(double dt)
     if (ls::getTileCoord(e->getPosition()) == ls::getTileCoord(_parent->getPosition()) && e->getTags().find("collectable") == e->getTags().end())
     {
       _parent->setForDelete();
-      if (e->getTags().find("enemy") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.2);
+      if (e->getTags().find("enemy") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.05);
     }
 
 }

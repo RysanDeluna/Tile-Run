@@ -5,7 +5,6 @@
 #include "scene_lvl1.h"
 #include "../game.h"
 #include "../components/cmp_sprite.h"
-#include "../components/cmp_input.h"
 #include "../components/cmp_hurt_player.h"
 #include "../components/cmp_bfs_ai.h"
 
