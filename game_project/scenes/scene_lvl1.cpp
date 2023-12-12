@@ -73,7 +73,7 @@ void SceneLVL1::Update(const double& dt) {
   for (const auto& e : ents.find("enemy"))
     e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(player->getPosition()));
   if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl1);
-  if (ls::getTileAt(player->getPosition()) == ls::END)
+  if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
     Engine::ChangeScene((Scene*)&lvl2);
 
   Scene::Update(dt);

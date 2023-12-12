@@ -92,7 +92,7 @@ void SceneLVL2::Update(const double &dt)
   }
 
   if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl2);
-  else if (ls::getTileAt(player->getPosition()) == ls::END)
+  else if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
     Engine::ChangeScene((Scene*)&menu);
 
   Scene::Update(dt);
