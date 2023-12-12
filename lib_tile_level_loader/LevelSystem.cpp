@@ -8,7 +8,8 @@ std::map<LevelSystem::Tile, sf::Color> LevelSystem::_fillcolours{
     {WALL, Color::White}, {END, Color::Red}};
 
 std::map<LevelSystem::Tile, sf::Color> LevelSystem::_edgecolours{
-    {EMPTY, sf::Color(50,50,50)}, {WALL, sf::Color::White}, {END, sf::Color::Red}};
+    {EMPTY, sf::Color(50,50,50)}, {WALL, sf::Color::White}, {END, sf::Color(100,0,0)}, {START, sf::Color(50,50,50)},
+    {ENEMY, sf::Color(50,50,50)}, {WAYPOINT, sf::Color(50,50,50)}};
 
 sf::Color LevelSystem::getColor(LevelSystem::Tile t) {
   auto it = _fillcolours.find(t);
@@ -109,9 +110,9 @@ void LevelSystem::buildSprites(bool optimise) {
       if (t == EMPTY)
       {
         e_tps.push_back({getTilePosition({x,y}), tls, getColor(t), getEdgeColor(t)});
-        continue;
-      }
-      tps.push_back({getTilePosition({x, y}), tls, getColor(t), getEdgeColor(t)});
+      } //else if (t == WAYPOINT) e_tps.push_back({{getTilePosition({x,y}) + Vector2f(_tileSize * 0.25, _tileSize * 0.25)},
+        // Vector2f(_tileSize *0.5, _tileSize * 0.5), getColor(t), getEdgeColor(t)});
+      else tps.push_back({getTilePosition({x, y}), tls, getColor(t), getEdgeColor(t)});
     }
   }
 

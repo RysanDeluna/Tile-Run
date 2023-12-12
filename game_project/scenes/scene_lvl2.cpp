@@ -7,6 +7,7 @@
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_pursuer_ai.h"
 #include "../components/cmp_hurt_player.h"
+#include "../components/cmp_collectable.h"
 #include <LevelSystem.h>
 #include <iostream>
 
@@ -27,7 +28,6 @@ void SceneLVL2::Load()
   {
     player = makeEntity();
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]) + spawn_offset);
-    std::cout << "OF: " << ls::getOffset().x << " " << ls::getOffset().y << std::endl;
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(sf::Vector2f(tile_size, tile_size));
     s->getShape().setOrigin(spawn_offset);
@@ -52,7 +52,20 @@ void SceneLVL2::Load()
   }
 
   // Collectibles
+  {
+    for(const auto& t : ls::findTiles(ls::WAYPOINT))
+    {
+      auto collect = makeEntity();
+      collect->setPosition(ls::getTilePosition(t) + sf::Vector2f (spawn_offset.x*1.22, spawn_offset.y*1.22));
+      auto s = collect->addComponent<ShapeComponent>();
+      s->setShape<sf::CircleShape>(spawn_offset.x * 0.75);
+      s->getShape().setFillColor(sf::Color::Cyan);
+      s->getShape().setOrigin(spawn_offset);
 
+      collect->addComponent<CollectableComponent>();
+      collect->addTag("collectable");
+    }
+  }
 
   setLoaded(true);
   std::cout << " LVL 2 LOADED " << std::endl;
