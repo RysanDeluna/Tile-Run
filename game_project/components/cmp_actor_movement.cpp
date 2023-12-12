@@ -43,6 +43,10 @@ float ActorMovementComponent::getSpeed() const {
   return _speed;
 }
 
+void ActorMovementComponent::increaseSpeed(float speed) {
+  _speed -= speed;
+}
+
 // **** PLAYER ****
 
 PlayerMoveComponent::PlayerMoveComponent(Entity *p, float s) :
