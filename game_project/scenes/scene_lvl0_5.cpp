@@ -1,24 +1,23 @@
 //
-// Created by rysan on 12/12/23.
+// Created by rysan on 29/11/23.
 //
-
-#include "scene_lvl1.h"
+#include "scene_lvl0_5.h"
 #include "../game.h"
 #include "../components/cmp_sprite.h"
-#include "../components/cmp_input.h"
-#include "../components/cmp_hurt_player.h"
+#include "../components/cmp_actor_movement.h"
 #include "../components/cmp_bfs_ai.h"
-
+#include "../components/cmp_hurt_player.h"
 #include <LevelSystem.h>
 #include <iostream>
+#include <thread>
 
 static std::shared_ptr<Entity> player;
 
-void SceneLVL1::Load() {
-  std::cout << ">> LVL 1 LOADING <<" << std::endl;
+void SceneLVL0_5::Load() {
+  std::cout << ">> LVL 0.5 LOADING <<" << std::endl;
 
   // Importing Level from file
-  ls::loadLevelFile("res/lvls/lvl1.txt", float(Engine::getWindowSize().x));
+  ls::loadLevelFile("res/lvls/lvl0_5.txt", float(Engine::getWindowSize().x));
   float tile_size = ls::getTileSize();
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
   auto spawn_offset = sf::Vector2f(tile_size/2, tile_size/2);
@@ -62,8 +61,7 @@ void SceneLVL1::Load() {
   setLoaded(true);
 }
 
-void SceneLVL1::UnLoad()
-{
+void SceneLVL0_5::UnLoad() {
   std::cout << ">> LVL 1 UnLOAD <<" << std::endl;
   // REMOVE PLAYER OR ANYTHING IN THE CANVAS
   player.reset();
@@ -71,17 +69,17 @@ void SceneLVL1::UnLoad()
   Scene::UnLoad();
 }
 
-void SceneLVL1::Update(const double& dt) {
+void SceneLVL0_5::Update(const double& dt) {
   for (const auto& e : ents.find("enemy"))
     e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(player->getPosition()));
-  if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl1);
-  else if (ls::getTileAt(player->getPosition()) == ls::END)
-    Engine::ChangeScene((Scene*)&lvl2);
+  if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl0_5);
+  else if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
+    Engine::ChangeScene((Scene*)&lvl1);
 
   Scene::Update(dt);
 }
 
-void SceneLVL1::Render() {
+void SceneLVL0_5::Render() {
   ls::render(Engine::GetWindow());
   Scene::Render();
 }

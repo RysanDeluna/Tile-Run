@@ -20,7 +20,6 @@ public:
 
 private:
     std::shared_ptr<Graph> G_;
-    double search_timer_ = 1.5f;
     double _mtimer;
     sf::Vector2ul goal_;
     bool goal_changed;

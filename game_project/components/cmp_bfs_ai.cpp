@@ -37,15 +37,13 @@ AIBFSComponent::AIBFSComponent(Entity *p, const std::shared_ptr<Graph>& g, sf::V
 
 void AIBFSComponent::update(double dt)
 {
-  search_timer_ -= dt;
   _mtimer -= dt;
   sf::Vector2ul my_coord = ls::getTileCoord(_parent->getPosition());
 
   // Search the target
-  if(search_timer_ <= 0 && goal_changed)
+  if(goal_changed)
   {
     current_path_ = breadth_first_search(G_.get(), my_coord, goal_);
-    goal_changed = false;
   }
   // Moves towards it
   if(_mtimer <= 0 && my_coord != goal_)
