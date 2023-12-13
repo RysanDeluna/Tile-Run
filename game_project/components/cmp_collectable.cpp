@@ -6,7 +6,7 @@
 #include "cmp_actor_movement.h"
 #include <LevelSystem.h>
 
-CollectableComponent::CollectableComponent(Entity *p) : Component(p) {}
+CollectableComponent::CollectableComponent(Entity *p) : Component(p), powered(false) {}
 
 void CollectableComponent::update(double dt)
 {
@@ -14,9 +14,15 @@ void CollectableComponent::update(double dt)
     if (ls::getTileCoord(e->getPosition()) == ls::getTileCoord(_parent->getPosition()) && e->getTags().find("collectable") == e->getTags().end())
     {
       _parent->setForDelete();
-      if (e->getTags().find("enemy") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.05);
-      if (e->getTags().find("player") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.025);
+      if(powered)
+      {
+        if (e->getTags().find("enemy") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.035);
+        if (e->getTags().find("player") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.025);
+      }
     }
+}
 
+void CollectableComponent::setPowered(bool p) {
+  powered = p;
 }
 

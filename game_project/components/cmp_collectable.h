@@ -6,9 +6,13 @@
 #include <ecm.h>
 
 class CollectableComponent : public Component{
+private:
+    bool powered;
 public:
     CollectableComponent() = delete;
     explicit CollectableComponent(Entity* p);
+
+    void setPowered(bool);
 
     void update(double dt) override;
     void render() override {}

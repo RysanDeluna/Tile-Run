@@ -54,7 +54,8 @@ void SceneLVL4::Load()
       s->getShape().setFillColor(sf::Color::Cyan);
       s->getShape().setOrigin(spawn_offset);
 
-      collect->addComponent<CollectableComponent>();
+      auto c = collect->addComponent<CollectableComponent>();
+      c->setPowered(true);
       collect->addTag("collectable");
     }
   }

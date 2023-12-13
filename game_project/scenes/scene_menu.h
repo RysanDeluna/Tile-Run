@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine.h"
+#include "../components/cmp_button.h"
 
 class MenuScene : public Scene {
 public:
@@ -10,4 +11,7 @@ public:
   void Load() override;
 
   void Update(const double& dt) override;
+
+  std::shared_ptr<Entity> btnStart;
+  std::shared_ptr<Entity> btnGuide;
 };
