@@ -12,9 +12,11 @@
 #include <thread>
 
 static std::shared_ptr<Entity> player;
+static double timer;
 
 void SceneLVL0_5::Load() {
   std::cout << ">> LVL 0.5 LOADING <<" << std::endl;
+  timer = 0;
 
   // Importing Level from file
   ls::loadLevelFile("res/lvls/lvl0_5.txt", float(Engine::getWindowSize().x));
@@ -70,12 +72,14 @@ void SceneLVL0_5::UnLoad() {
 }
 
 void SceneLVL0_5::Update(const double& dt) {
+  timer+=dt;
   for (const auto& e : ents.find("enemy"))
     e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(player->getPosition()));
   if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl0_5);
   else if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
     Engine::ChangeScene((Scene*)&lvl1);
 
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && timer > 1) Engine::ChangeScene((Scene*)&lvl1);
   Scene::Update(dt);
 }
 

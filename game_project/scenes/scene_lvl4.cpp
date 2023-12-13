@@ -18,6 +18,7 @@
 
 static std::shared_ptr<Entity> player;
 static double timer;
+static bool skipable;
 
 void SceneLVL4::Load()
 {
@@ -28,6 +29,7 @@ void SceneLVL4::Load()
   ls::setOffset(sf::Vector2f(0, Engine::getWindowSize().y - (ls::getHeight() * tile_size)));
   sf::Vector2f spawn_offset (tile_size/2, tile_size/2);
   timer = 0;
+  skipable = false;
 
   // PLAYER SPAWNING
   {
@@ -143,12 +145,16 @@ void SceneLVL4::Update(const double &dt)
         e->addComponent<HurtComponent>();  // Kill player
         e->addComponent<KillComponent>("enemy_b");  // Kill other enemies
         timer = 0;
+        skipable = true;
       }
   }
 
   if (!player->isAlive()) Engine::ChangeScene((Scene*)& lvl4);
   else if (ls::getTileAt(player->getPosition())== ls::END && ents.find("collectable").empty())
     Engine::ChangeScene((Scene*)&menu);
+
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && skipable) Engine::ChangeScene((Scene*)&menu);
+
 
   Scene::Update(dt);
 }

@@ -12,10 +12,11 @@
 #include <iostream>
 
 static std::shared_ptr<Entity> player;
+static double timer;
 
 void SceneLVL1::Load() {
   std::cout << ">> LVL 1 LOADING <<" << std::endl;
-
+  timer = 0;
   // Importing Level from file
   ls::loadLevelFile("res/lvls/lvl1.txt", float(Engine::getWindowSize().x));
   float tile_size = ls::getTileSize();
@@ -71,12 +72,14 @@ void SceneLVL1::UnLoad()
 }
 
 void SceneLVL1::Update(const double& dt) {
+  timer+=dt;
   for (const auto& e : ents.find("enemy"))
     e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(player->getPosition()));
   if (!player->isAlive()) Engine::ChangeScene((Scene*)&lvl1);
   else if (ls::getTileAt(player->getPosition()) == ls::END)
     Engine::ChangeScene((Scene*)&lvl2);
 
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && timer>1) Engine::ChangeScene((Scene*)&lvl2);
   Scene::Update(dt);
 }
 

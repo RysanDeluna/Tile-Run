@@ -13,6 +13,7 @@
 
 static std::shared_ptr<Entity> player;
 static double timer;
+static bool skipable;
 
 void SceneLVL2::Load()
 {
@@ -91,6 +92,7 @@ void SceneLVL2::Update(const double &dt)
         e->get_components<PursuerAIComponent>()[0]->setActive(true);
         e->addComponent<HurtComponent>();
         timer = 0;
+        skipable = true;
       }
     }
   }
@@ -99,6 +101,8 @@ void SceneLVL2::Update(const double &dt)
   else if (ls::getTileAt(player->getPosition()) == ls::END && ents.find("collectable").empty())
     Engine::ChangeScene((Scene*)&lvl3);
 
+
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && skipable) Engine::ChangeScene((Scene*)&lvl3);
   Scene::Update(dt);
 }
 

@@ -26,15 +26,20 @@ void MenuScene::Load() {
   auto btnPos = Vector2f(windowSize.x/2.f, windowSize.y/2.f);
   auto button = btnStart->addComponent<Button>(btnPos, "PLAY", sf::Color::White, sf::Color::Green, sf::Color::Magenta);
   button->selected = true;
-  btnStart->addComponent<PhysicsComponent>(false, button->getSize());
 
   btnGuide = makeEntity();
   btnPos = Vector2f (windowSize.x/2.f, windowSize.y/1.5f);
-  button = btnGuide->addComponent<Button>(btnPos, "GUIDE", sf::Color::White, sf::Color::Green, sf::Color::Magenta);
-  btnGuide->addComponent<PhysicsComponent>(false, button->getSize());
+  btnGuide->addComponent<Button>(btnPos, "GUIDE", sf::Color::White, sf::Color::Green, sf::Color::Magenta);
 
   setLoaded(true);
 }
+
+//void MenuScene::UnLoad()
+//{
+//  btnStart.reset();
+//  btnGuide.reset();
+//  Scene::UnLoad();
+//}
 
 void MenuScene::Update(const double& dt) {
   // cout << "Menu Update "<<dt<<"\n";
@@ -43,16 +48,20 @@ void MenuScene::Update(const double& dt) {
     btnGuide->get_components<Button>()[0]->selected = true;
     btnStart->get_components<Button>()[0]->selected = false;
   }
+
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
   {
     btnGuide->get_components<Button>()[0]->selected = false;
     btnStart->get_components<Button>()[0]->selected = true;
   }
-
   if(btnStart->GetCompatibleComponent<Button>()[0]->isPressed())
     Engine::ChangeScene(&lvl0_5);
   else if(btnGuide->GetCompatibleComponent<Button>()[0]->isPressed())
     Engine::ChangeScene(&guide);
+
+  if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
+      !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    Button::_key_pressed = BUTTON_IDLE;
 
   Scene::Update(dt);
 }
