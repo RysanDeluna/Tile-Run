@@ -30,6 +30,7 @@ void PursuerAIComponent::update(double dt)
 
         move(dir.x, dir.y);
       }
+      setSpeed(pl->GetCompatibleComponent<ActorMovementComponent>()[0]->getSpeed());
       _mtimer = _speed;
     }
   }

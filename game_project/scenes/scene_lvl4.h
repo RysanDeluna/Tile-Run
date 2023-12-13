@@ -9,5 +9,6 @@ class SceneLVL4 : public Scene{
     void UnLoad() override;
     void Update(const double &dt) override;
     void Render() override;
+    sf::Vector2f closest_entity(sf::Vector2f me, std::string tag);
 };
 

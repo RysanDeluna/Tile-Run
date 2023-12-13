@@ -46,6 +46,7 @@ float ActorMovementComponent::getSpeed() const {
 void ActorMovementComponent::increaseSpeed(float speed) {
 
   if (_speed > 0.07 )_speed -= speed;
+  else _speed = 0.07;
 }
 
 // **** PLAYER ****

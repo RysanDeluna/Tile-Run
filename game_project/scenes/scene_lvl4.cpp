@@ -12,6 +12,7 @@
 #include "../components/cmp_pursuer_ai.h"
 #include "../components/cmp_kill.h"
 
+#include <queue>
 #include <LevelSystem.h>
 #include <iostream>
 
@@ -86,7 +87,7 @@ void SceneLVL4::Load()
       s->getShape().setOrigin(spawn_offset);
 
       enemy->addComponent<HurtComponent>();
-      auto ai = enemy->addComponent<AIBFSComponent>(G, ls::findTiles(ls::WAYPOINT)[i++]);
+      auto ai = enemy->addComponent<AIBFSComponent>(G, ls::findTiles(ls::WAYPOINT)[++i]);
       ai->setSpeed(0.2f);
       enemy->addTag("enemy"); enemy->addTag("enemy_b");
     }
@@ -104,22 +105,42 @@ void SceneLVL4::UnLoad()
   Scene::UnLoad();
 }
 
+// Returns the position of the closest entity to a point (euclidean distance) given its tag
+sf::Vector2f SceneLVL4::closest_entity(sf::Vector2f me, std::string tag)
+{
+  sf::Vector2f closest;
+  double minimum = Engine::getWindowSize().x;
+  for (const auto& e : ents.find(tag))
+  {
+    double current = sf::length(me - e->getPosition());
+    if(current <= minimum) { closest = e->getPosition(); minimum = current; }
+  }
+  return closest;
+}
+
 void SceneLVL4::Update(const double &dt)
 {
   timer+=dt;
   {
+
     // ENEMIES TYPE 1 - BFS
     for (const auto &e: ents.find("enemy_b")) // In case there is no more collectables, they chase the player
-      if (ents.find("collectable").empty())
+    {
+      auto c = ents.find("collectable");
+      // As soon as they get the max velocity, they will chase the player;
+      if (c.empty() || e->GetCompatibleComponent<ActorMovementComponent>()[0]->getSpeed() < 0.08)
         e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(player->getPosition()));
+      else
+        e->get_components<AIBFSComponent>()[0]->setGoal(ls::getTileCoord(closest_entity(e->getPosition(), "collectable")));
+    }
 
     // ENEMIES TYPE 2 - Pursuer
     for (const auto &e: ents.find("enemy_p"))
       if (timer > 1 && !e->get_components<PursuerAIComponent>()[0]->isActive())
       {
         e->get_components<PursuerAIComponent>()[0]->setActive(true);
-        //e->addComponent<HurtComponent>();  // Kill player
-        //e->addComponent<KillComponent>("enemy_b");  // Kill other enemies
+        e->addComponent<HurtComponent>();  // Kill player
+        e->addComponent<KillComponent>("enemy_b");  // Kill other enemies
         timer = 0;
       }
   }

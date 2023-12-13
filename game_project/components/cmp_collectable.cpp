@@ -15,6 +15,7 @@ void CollectableComponent::update(double dt)
     {
       _parent->setForDelete();
       if (e->getTags().find("enemy") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.05);
+      if (e->getTags().find("player") != e->getTags().end()) e->GetCompatibleComponent<ActorMovementComponent>()[0]->increaseSpeed(0.025);
     }
 
 }

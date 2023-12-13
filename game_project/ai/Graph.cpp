@@ -21,7 +21,6 @@ void Graph::setWidth(uint w) { _width = w; }
 
 bool Graph::passable(sf::Vector2f coord) const
 {
-
   return ls::getTile(sf::Vector2ul(coord)) != ls::WALL;
 }
 

@@ -44,6 +44,7 @@ void AIBFSComponent::update(double dt)
   if(goal_changed)
   {
     current_path_ = breadth_first_search(G_.get(), my_coord, goal_);
+    goal_changed = false;
   }
   // Moves towards it
   if(_mtimer <= 0 && my_coord != goal_)
