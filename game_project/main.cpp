@@ -10,5 +10,5 @@ SceneLVL3 lvl3;
 SceneLVL4 lvl4;
 
 int main() {
-  Engine::Start(1920, 1080, "game debug mode", &menu);
+  Engine::Start(1280, 720, "game debug mode", &menu);
 }
