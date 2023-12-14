@@ -22,7 +22,7 @@ void GuideScene::Load()
                                      "But be careful!! There will be some enemies trying to stop you.\n\n"
                                      "The Magenta, also called Type 1, is smart and will try to get\nyou wherever you are!\n\n"
                                      "Now, the Yellow, AKA Type 2, will follow each and every step\nyou take, mimicking your velocity as well!\n\n\n"
-                                     "In order to move, use either [WASD] or the Arrow Keys.\n\nHave Fun :)\t\t\t\t\tPress S to start."
+                                     "In order to move, use either [WASD] or the Arrow Keys.\n\nHave Fun :)\t\t\t\t\tPress S to go back."
                                      );
   }
 
