@@ -1,3 +1,5 @@
+# Game Design Document
+
 ## Introduction
 
 This document describes the game Tile Running, which is designed to be a simple, 2D grid game, constructed and designed to study different types of AI in a grid-like environment while playing a 'mouse and rat' game. The game employs a grid environment with different levels, each one with its own objectives, enemies, AI algorithms, collectible items, and memory and scene management. 
@@ -65,3 +67,46 @@ The GUI is implemented only in the main menu with the usage of buttons. These we
 ## Artwork
 
 The artwork is generated entirely by mathematical function within the Tile Level Loader, that generated the sprites utilized for drawing the levels. Shapes were based on the SFML library. 
+
+# Development Process
+
+The beginning of the development process surrounded understanding the "in's and out's" of the framework as well as how the algorithms for the AI worked. For this, the first step was drafting a class diagram that could explain how the classes interacts with each other. It can be seen bellow:
+
+![image](https://github.com/GameDevCPP/platformer-RysanDeluna/assets/82891214/a509729d-c6e8-4cd7-92cb-7e4a2ffd0472)
+
+The diagram shows how the framework was first developed to the Platformer game, but it gives a general idea of how the different systems interact with each other, as well as how the entity/component design works.
+This was the base for what would become TILE RUNNING.
+
+## Regarding the AI 
+
+By studying how an pathfinding algorithm would work, it was decided that the game would be better suited in a grid-like map, as the graph implementation would be much easier.
+As the tiles are not weighted, the Dijsktra Algorithm or the A* were not considered. 
+
+Furthermore, this type of AI guided the decision for approaching a top-down view of the grid and the construction of the levels, which are made with how the AI works.
+
+The AI code is mainly inside the components relevant to them, but the graph implementation is found within an AI directory.
+
+## Additions to the framework
+
+Some components were added beyond what was given by the framework. These are:
+
+- BFS_AI: adds to the ActorMovementComponent by implementing the breadth first search and making the movements based on the path found.
+- Collectables: component responsable to delete the entity and power other entities with the ActorMovementComponent
+- Kill: this component makes the owner entity to kill another determined type of entity, auto-destroying itself in the process.
+- Pursuer_AI: when an Entity owns this component, it will mimic the movements made by another entity; a better of making this work is spawning the parent on the same tile as the mimicking target.
+
+Besides the components development, some changes were made on the already given source codes.
+
+- Tile Loader:
+  - Now the tiles possess a outline color and empty tiles have a gray outline;
+  - A function that returns the grid coordinates of a float position;
+  - The optimise function is only active to the WALL and END tiles.
+
+- Text Component:
+  - It is positioned wherever it's parent is.
+
+## Levels Development
+
+The levels follow the rule of first introducing a simple mechanic, followed by a much harder experience with that single mechanic. For example, the first level introduces the Type 1 enemy, while the second level is a maze with that kind of enemy. The same is done for further mechanics.
+
+The mazes were based on the [dungeon generator made by Donjon](https://donjon.bin.sh/d20/dungeon/) with alterations that would make a better gaming experience.
